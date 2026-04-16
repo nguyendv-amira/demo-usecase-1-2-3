@@ -32,7 +32,7 @@
   --r-medium: 8px;
   --r-small:  4px;
   /* Layout */
-  --nav-h:60px;--trigger-h:54px;--inp-h:80px;--panel-h:460px;
+  --nav-h:60px;--trigger-h:54px;--inp-h:135px;--panel-h:430px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;font-family:'Noto Sans JP',sans-serif;font-size:14px;line-height:20px;overflow:hidden}
@@ -97,13 +97,6 @@ html,body{height:100%;font-family:'Noto Sans JP',sans-serif;font-size:14px;line-
 .uc-title{font-size:11px;color:var(--muted)}
 
 /* bot mode pill */
-.bot-mode{margin-left:auto;flex-shrink:0;font-size:10px;font-weight:700;padding:2px 9px;border-radius:8px;display:flex;align-items:center;gap:4px}
-.bot-mode.a{background:rgba(26,86,219,.08);color:#1a56db}
-.bot-mode.b{background:rgba(22,163,74,.1);color:var(--green)}
-.bot-mode-dot{width:6px;height:6px;border-radius:50%}
-.bot-mode.a .bot-mode-dot{background:var(--navy)}
-.bot-mode.b .bot-mode-dot{background:var(--green)}
-
 /* MESSAGES */
 .msgs{flex:1;min-height:0;overflow-y:auto;padding:18px 28px 10px;display:flex;flex-direction:column;gap:12px;background:var(--gray);scroll-behavior:smooth}
 .msgs::-webkit-scrollbar{width:4px}
@@ -140,17 +133,6 @@ html,body{height:100%;font-family:'Noto Sans JP',sans-serif;font-size:14px;line-
 /* error */
 .ebub{background:rgba(255,76,81,0.06);border:1px solid rgba(255,76,81,0.3);border-radius:var(--r-large);padding:12px;font-size:14px;color:var(--red);display:flex;gap:8px;align-items:flex-start}
 .ebub svg{width:14px;height:14px;flex-shrink:0;margin-top:1px;stroke:currentColor;fill:none;stroke-width:2}
-
-/* LOGIN PROMPT CARD */
-.login-card{background:var(--white);border:1px solid var(--grayB);border-radius:var(--r-large);border-bottom-left-radius:var(--r-small);padding:16px;max-width:80%;box-shadow:var(--sh1)}
-.login-card-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:8px}
-.login-card-body{font-size:14px;color:var(--muted);line-height:20px;margin-bottom:12px}
-.login-card-actions{display:flex;gap:8px;flex-wrap:wrap}
-.lc-btn{padding:0 16px;height:48px;border-radius:var(--r-medium);font-size:14px;font-family:inherit;font-weight:700;cursor:pointer;border:1px solid;transition:all .13s;display:inline-flex;align-items:center}
-.lc-btn.primary{background:var(--navy);color:var(--white);border-color:var(--navy)}
-.lc-btn.primary:hover{background:var(--navyL)}
-.lc-btn.ghost{background:transparent;color:var(--muted);border-color:var(--grayB)}
-.lc-btn.ghost:hover{border-color:var(--navy);color:var(--navy)}
 
 /* ACTION DOCK */
 .action-dock{flex-shrink:0;display:none;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 24px 12px;background:var(--gray);border-top:1px solid var(--grayB)}
@@ -239,22 +221,6 @@ html,body{height:100%;font-family:'Noto Sans JP',sans-serif;font-size:14px;line-
 .pdf-btn:hover{background:#b91c1c}
 .pdf-btn svg{width:16px;height:16px;fill:#fff}
 
-/* LOGIN MODAL OVERLAY */
-.login-modal-bg{position:absolute;inset:0;background:rgba(15,37,72,.55);display:none;align-items:center;justify-content:center;z-index:50;backdrop-filter:blur(2px)}
-.login-modal-bg.visible{display:flex}
-.login-modal{background:var(--white);border-radius:var(--r-large);padding:24px;width:320px;box-shadow:var(--sh2)}
-.lm-title{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:4px;line-height:24px}
-.lm-sub{font-size:14px;color:var(--muted);margin-bottom:16px;line-height:20px}
-.lm-field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
-.lm-label{font-size:14px;font-weight:700;color:var(--text)}
-.lm-input{padding:0 12px;height:48px;border:none;border-radius:var(--r-large);font-family:inherit;font-size:14px;font-weight:500;line-height:26px;color:var(--muted);background:#F8F8F8;outline:none;transition:box-shadow .14s;width:100%}
-.lm-input:focus{box-shadow:inset 0 0 0 1px var(--text)}
-.lm-actions{display:flex;gap:8px;margin-top:16px}
-.lm-submit{flex:1;height:48px;background:var(--navy);color:var(--white);border:none;border-radius:var(--r-medium);font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:background .14s}
-.lm-submit:hover{background:var(--navyL)}
-.lm-cancel{height:48px;padding:0 16px;background:transparent;border:1px solid var(--grayB);border-radius:var(--r-medium);font-family:inherit;font-size:14px;color:var(--muted);cursor:pointer;transition:all .14s}
-.lm-cancel:hover{border-color:var(--navy);color:var(--navy)}
-
 /* SUBMIT BAR */
 .submit-bar{flex-shrink:0;padding:12px 24px;background:var(--gray);border-top:1px solid var(--grayB);display:none;flex-direction:column;gap:8px}
 .submit-bar.visible{display:flex}
@@ -277,8 +243,45 @@ html,body{height:100%;font-family:'Noto Sans JP',sans-serif;font-size:14px;line-
 .inp-foot{text-align:center;margin-top:8px;font-size:12px;color:var(--disabled)}
 
 /* KB error btn */
-.kb-err-btn{position:fixed;bottom:24px;right:24px;z-index:9000;padding:8px 12px;border-radius:var(--r-medium);background:rgba(19,19,19,.8);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-size:12px;font-family:inherit;cursor:pointer;transition:all .15s}
-.kb-err-btn:hover{background:rgba(255,76,81,.8);color:var(--white)}
+/* ── bot toggle switch ── */
+.bot-toggle-wrap{
+  display:flex;align-items:center;gap:8px;
+  padding:0 2px 8px;
+}
+.toggle-track{
+  width:36px;height:20px;border-radius:10px;
+  background:#d1d5db;
+  position:relative;cursor:pointer;
+  transition:background .2s;flex-shrink:0;
+  border:none;padding:0;
+}
+.toggle-track.on{background:var(--navy)}
+.toggle-thumb{
+  position:absolute;top:2px;left:2px;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--white);
+  transition:transform .2s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 1px 3px rgba(0,0,0,.2);
+}
+.toggle-track.on .toggle-thumb{transform:translateX(16px)}
+.toggle-label{
+  font-size:13px;font-weight:500;
+  color:var(--navy);
+  cursor:pointer;user-select:none;
+  transition:color .2s;
+}
+.toggle-label.on{color:var(--navy)}
+/* KB error bottom right */
+.kb-err-btn{
+  position:fixed;bottom:20px;right:20px;z-index:9000;
+  padding:5px 10px;border-radius:var(--r-medium);
+  background:rgba(19,19,19,.7);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.35);font-size:11px;font-family:inherit;
+  cursor:pointer;transition:all .14s;
+}
+.kb-err-btn:hover{background:rgba(255,76,81,.75);color:var(--white);border-color:transparent}
+.mode-dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -326,8 +329,7 @@ html,body{height:100%;font-family:'Noto Sans JP',sans-serif;font-size:14px;line-
     <!-- UC strip -->
     <div class="uc-strip">
       <span class="uc-tag" id="uc-tag">UC-01</span>
-      <span class="uc-title" id="uc-title">業務相談チャットボット – 公開サイト</span>
-      <span class="bot-mode a" id="bot-mode"><span class="bot-mode-dot"></span>Bot A</span>
+      <span class="uc-title" id="uc-title">業務相談チャットボット – 公開サイト</span>Bot A</span>
     </div>
 
     <!-- SCREEN: chat messages -->
@@ -349,27 +351,6 @@ html,body{height:100%;font-family:'Noto Sans JP',sans-serif;font-size:14px;line-
     <div class="form-screen" id="form-screen">
       <div class="form-body" id="form-body"></div>
     </div>
-
-    <!-- LOGIN MODAL -->
-    <div class="login-modal-bg" id="login-modal">
-      <div class="login-modal">
-        <div class="lm-title">ログインして続ける</div>
-        <div class="lm-sub">ログインすると、ご利用中の製品情報をもとに<br>より精度の高いサポートを受けられます。</div>
-        <div class="lm-field">
-          <label class="lm-label">メールアドレス</label>
-          <input class="lm-input" type="email" placeholder="taro@example.com" id="lm-email">
-        </div>
-        <div class="lm-field">
-          <label class="lm-label">パスワード</label>
-          <input class="lm-input" type="password" placeholder="••••••••" id="lm-pass">
-        </div>
-        <div class="lm-actions">
-          <button class="lm-cancel" onclick="closeLogin()">後で</button>
-          <button class="lm-submit" onclick="doLogin()">ログイン</button>
-        </div>
-      </div>
-    </div>
-
     <!-- action dock -->
     <div class="action-dock" id="action-dock">
       <span class="adlabel">この回答は：</span>
@@ -387,6 +368,13 @@ html,body{height:100%;font-family:'Noto Sans JP',sans-serif;font-size:14px;line-
 
   <!-- inp-area: always visible outside chat-panel -->
   <div class="inp-area" id="inp-area">
+    <!-- bot toggle -->
+    <div class="bot-toggle-wrap">
+      <button class="toggle-track" id="bot-toggle" onclick="selectBot(botMode==='A'?'B':'A')">
+        <div class="toggle-thumb"></div>
+      </button>
+      <span class="toggle-label" id="toggle-label" onclick="selectBot(botMode==='A'?'B':'A')">Bot A</span>
+    </div>
     <div class="inp-row">
       <textarea class="inp" id="inp" placeholder="製品QAや見積・提案" rows="1"
         onkeydown="onKey(event)" oninput="rsz(this)"></textarea>
@@ -404,10 +392,36 @@ html,body{height:100%;font-family:'Noto Sans JP',sans-serif;font-size:14px;line-
 /* ══ state ══ */
 let isOpen=false, hasGreeted=false, userHasSent=false;
 let botMode='A'; // 'A' = not logged in, 'B' = logged in
-let loginPromptShown=false;
 
-/* mock user info for Bot B */
+/* mock logged-in user (Bot B) */
 const mockUser={name:'田中 健太',company:'株式会社ABC不動産',email:'kenta@abc-re.co.jp',tel:'03-1234-5678',license:'東京都知事(3)第12345号',products:['PinRich 不動産仲介','査定書作成']};
+
+function selectBot(mode){
+  if(botMode === mode) return;
+
+  // reset chat
+  document.getElementById('msgs').innerHTML='<div class="ddiv">今日</div><div id="chat-bottom"></div>';
+  hideDock();
+  userHasSent=false; hasGreeted=false;
+  showOnly('msgs');
+  if(isOpen){ isOpen=false; document.getElementById('chat-overlay').classList.remove('open'); document.getElementById('chat-panel').classList.remove('open'); }
+
+  botMode = mode;
+
+  // update toggle UI
+  const track = document.getElementById('bot-toggle');
+  const label = document.getElementById('toggle-label');
+  if(mode==='B'){
+    track.classList.add('on');
+    label.classList.add('on');
+    label.textContent = 'Bot B';
+  } else {
+    track.classList.remove('on');
+    label.classList.remove('on');
+    label.textContent = 'Bot A';
+  }
+}
+
 
 /* ══ panel ══ */
 function togglePanel(){
@@ -422,7 +436,11 @@ function greet(){
     addTyping();
     setTimeout(()=>{
       rmTyping();
-      addBotRaw(`<p><strong>こんにちは！PinRichのAIアシスタント</strong>です。</p><p style="margin-top:6px">業務課題のご相談や製品・料金のご案内など、お気軽にお話しください。</p>`);
+      if(botMode==='B'){
+        addBotRaw(`<p><strong>こんにちは、${mockUser.name}さん！</strong></p><p style="margin-top:6px">PinRich AIアシスタントです。ご利用中の製品（${mockUser.products.join('・')}）の使い方や、業務に関するご質問をお気軽にどうぞ。</p>`);
+      } else {
+        addBotRaw(`<p><strong>こんにちは！PinRichのAIアシスタント</strong>です。</p><p style="margin-top:6px">業務課題のご相談や製品・料金のご案内など、お気軽にお話しください。</p>`);
+      }
     },900);
   },400);
 }
@@ -455,43 +473,7 @@ function addErr(html){
   ins(d);scrollB();
 }
 
-/* ══ login prompt inside chat ══ */
-function showLoginPrompt(){
-  if(loginPromptShown||botMode==='B')return;
-  loginPromptShown=true;
-  const d=document.createElement('div');d.className='row bot';d.id='login-prompt-row';
-  d.innerHTML=`<div class="bav"><svg width="14" height="14" fill="white" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg></div>
-  <div><div class="login-card">
-    <div class="login-card-title">🔐 ログインでサポート向上</div>
-    <div class="login-card-body">ログインすると、ご利用中の製品情報をもとに<br>より精度の高い回答とサポートを提供できます。</div>
-    <div class="login-card-actions">
-      <button class="lc-btn primary" onclick="openLogin()">ログインして続ける</button>
-      <button class="lc-btn ghost" onclick="skipLogin()">このまま続ける</button>
-    </div>
-  </div><div class="mt">${now()}</div></div>`;
-  ins(d);scrollB();hideDock();
-}
 
-function openLogin(){document.getElementById('login-modal').classList.add('visible')}
-function closeLogin(){document.getElementById('login-modal').classList.remove('visible')}
-function skipLogin(){
-  const r=document.getElementById('login-prompt-row');if(r)r.remove();
-  addBotRaw('<p>わかりました。このまま続けましょう。何でもお気軽にご質問ください。</p>');
-  if(userHasSent)showDock();
-}
-function doLogin(){
-  const email=document.getElementById('lm-email').value.trim();
-  if(!email)return;
-  closeLogin();
-  const r=document.getElementById('login-prompt-row');if(r)r.remove();
-  // switch to Bot B mode
-  botMode='B';
-  const modeEl=document.getElementById('bot-mode');
-  modeEl.className='bot-mode b';modeEl.innerHTML='<span class="bot-mode-dot"></span>Bot B';
-  document.getElementById('inp-foot').textContent='PinRich AI · ご利用中の製品データ連携済み';
-  addBotRaw(`<p>✅ <strong>${mockUser.name}さん</strong>、ログインが完了しました。</p><p style="margin-top:6px;font-size:12.5px;color:var(--muted)">ご利用中の製品：${mockUser.products.join('・')}<br>引き続きご質問をどうぞ。</p>`);
-  if(userHasSent)showDock();
-}
 
 /* ══ dock ══ */
 function showDock(){
@@ -518,7 +500,7 @@ function doAct(type){
 function startUC02(){
   setUCLabel('UC-02','g','チャット完了処理中…');
   showOnly('proc-screen');
-  const isBotB=botMode==='B';
+  const isBotB = (botMode === 'B');
   const steps=isBotB
     ?[{id:'ps0',icon:'🤖',label:'AIがチャット履歴を要約中...',done:'チャット要約完了（〜200文字）',ms:1100},
       {id:'ps1',icon:'🗄️',label:'DBからお客様情報を取得中...',done:`顧客情報取得完了（${mockUser.company}）`,ms:900},
@@ -533,7 +515,7 @@ function startUC02(){
   runSteps(steps,()=>{
     const channel=isBotB?'#dashboard-bot（Trigger #8）':'#hp-bot（Trigger #4）';
     const pillClass=isBotB?'orange':'purple';
-    setUCLabel('UC-02','g',`チャット完了（Bot ${botMode} · ✅ 解決済み）`);
+    setUCLabel('UC-02','g','チャット完了（✅ 解決済み）');
     showRedirectCountdown('done-screen', 2, ()=>{
       backToChat(
         `✅ Slack ${channel} に通知済み`, 'g',
@@ -552,7 +534,7 @@ function startUC02(){
    Bot B → processing → Trigger #6 → #dashboard-bot */
 function startUC03(){
   if(botMode==='B'){
-    // Bot B: no form needed, has DB info
+    // Bot B: no form — AI summary → DB → Slack #dashboard-bot Trigger #6
     setUCLabel('UC-03','o','エスカレーション処理中（Bot B）');
     showOnly('proc-screen');
     const steps=[
@@ -669,7 +651,7 @@ function addSysMsg(text, cls){
 function backToChat(sysText, sysCls, botMsg){
   showOnly('msgs');
   setUCLabel('UC-01','','業務相談チャットボット – 公開サイト');
-  userHasSent=false; loginPromptShown=false;
+  userHasSent=false;
   if(sysText) addSysMsg(sysText, sysCls||'g');
   addBotRaw(botMsg||'<p>他にご質問があればお気軽にどうぞ。</p>');
 }
@@ -891,10 +873,6 @@ function sendUser(){
     setTimeout(()=>{
       rmTyping();
       addBot('<p>ご質問ありがとうございます。ナレッジベースで確認中です。少々お待ちください。</p>');
-      // show login prompt after first bot reply (Bot A only, once)
-      if(botMode==='A'&&!loginPromptShown){
-        setTimeout(showLoginPrompt,600);
-      }
     },1300);
   },300);
 }
