@@ -228,20 +228,6 @@ html,body{height:100%;font-family:'Noto Sans JP',sans-serif;font-size:14px;line-
 .db-result{background:rgba(46,125,50,0.08);border:1px solid rgba(46,125,50,0.25);border-radius:var(--r-large);padding:12px;font-size:14px;color:var(--text);line-height:20px;display:flex;flex-direction:column;gap:6px}
 .db-result-title{font-size:12px;font-weight:700;color:var(--green);display:flex;align-items:center;gap:5px}
 .db-err{background:rgba(255,76,81,0.06);border:1px solid rgba(255,76,81,0.3);border-radius:var(--r-large);padding:12px;font-size:14px;color:var(--red);line-height:20px}
-/* OTP */
-.otp-wrap{background:rgba(46,125,50,0.06);border:1px solid rgba(46,125,50,0.2);border-radius:var(--r-large);padding:12px;display:flex;flex-direction:column;gap:12px}
-.otp-title{font-size:14px;font-weight:700;color:var(--green);display:flex;align-items:center;gap:5px}
-.otp-sub{font-size:14px;color:var(--muted);line-height:20px}
-.otp-sub strong{color:var(--text)}
-.otp-inputs{display:flex;gap:8px;justify-content:center}
-.otp-digit{width:44px;height:56px;border:1px solid var(--grayB);border-radius:var(--r-large);text-align:center;font-size:22px;font-weight:700;color:var(--navy);font-family:inherit;outline:none;transition:box-shadow .14s;background:#F8F8F8}
-.otp-digit:focus{box-shadow:inset 0 0 0 1px var(--text)}
-.otp-digit.filled{box-shadow:inset 0 0 0 1px var(--navy);background:var(--white)}
-.otp-digit.err{box-shadow:inset 0 0 0 1px var(--red);background:rgba(255,76,81,0.04)}
-.otp-resend{font-size:12px;color:var(--muted);text-align:center}
-.otp-resend button{background:none;border:none;color:var(--navy);font-family:inherit;font-size:12px;cursor:pointer;text-decoration:underline;padding:0}
-.otp-err-msg{font-size:14px;color:var(--red);text-align:center;display:none}
-.otp-err-msg.show{display:block}
 /* pricing table */
 .price-table{width:100%;border-collapse:collapse;font-size:12px}
 .price-table th{background:var(--navy);color:var(--white);padding:8px 12px;text-align:left;font-weight:700;font-size:14px}
@@ -715,7 +701,19 @@ function submitForm(){
 /* DB lookup (existing customer via admin email) */
 /* ── Step 1: check email exists in DB ── */
 let _otpEmail = '';
-let _mockOtp = '';
+
+/* Mock DB record — in production this comes from API */
+const _mockDBRecord = {
+  company:  '株式会社ABC不動産',
+  name:     '田中 健太',
+  email:    '', // filled at lookup time
+  tel:      '03-1234-5678',
+  license:  '東京都知事(3)第12345号',
+  products: ['PinRich 不動産仲介', '査定書作成'],
+  stores:   3,
+  users:    12
+};
+
 
 function doDBLookup(email){
   _otpEmail = email;
@@ -731,93 +729,12 @@ function doDBLookup(email){
   setTimeout(()=>{
     document.getElementById('db-checking')?.remove();
     if(found){
-      // generate mock OTP
-      _mockOtp = String(Math.floor(100000 + Math.random() * 900000));
-      showOTPStep(email);
+      submitExistingCustomer();
     } else {
       showFallbackForm(s2);
     }
     setTimeout(()=>fb.scrollTop=fb.scrollHeight,100);
   }, 1400);
-}
-
-/* ── Step 2: OTP input ── */
-function showOTPStep(email){
-  const masked = email.replace(/(.{2}).+(@.+)/, '$1●●●●$2');
-  const s2 = document.getElementById('form-step2');
-  s2.innerHTML = `
-    <div class="otp-wrap" id="otp-wrap">
-      <div class="otp-title">📧 確認コードを送信しました</div>
-      <div class="otp-sub"><strong>${masked}</strong> に6桁の確認コードを送信しました。<br>メールをご確認のうえ、以下に入力してください。</div>
-      <div class="otp-inputs" id="otp-inputs">
-        <input class="otp-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" id="otp-0" oninput="otpInput(this,0)" onkeydown="otpKey(event,0)">
-        <input class="otp-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" id="otp-1" oninput="otpInput(this,1)" onkeydown="otpKey(event,1)">
-        <input class="otp-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" id="otp-2" oninput="otpInput(this,2)" onkeydown="otpKey(event,2)">
-        <input class="otp-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" id="otp-3" oninput="otpInput(this,3)" onkeydown="otpKey(event,3)">
-        <input class="otp-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" id="otp-4" oninput="otpInput(this,4)" onkeydown="otpKey(event,4)">
-        <input class="otp-digit" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]" id="otp-5" oninput="otpInput(this,5)" onkeydown="otpKey(event,5)">
-      </div>
-      <div class="otp-err-msg" id="otp-err">コードが正しくありません。もう一度お試しください。</div>
-      <div class="otp-resend">コードが届かない場合は<button onclick="resendOTP()">再送する</button></div>
-      <div style="font-size:12px;color:var(--muted);text-align:center">（テスト用コード: <strong id="otp-hint">${_mockOtp}</strong>）</div>
-    </div>`;
-  document.getElementById('submit-btn').textContent = '確認して送信する';
-  document.getElementById('submit-bar').classList.add('visible');
-  document.getElementById('submit-btn').onclick = verifyOTP;
-  // focus first digit
-  setTimeout(()=>document.getElementById('otp-0')?.focus(), 100);
-}
-
-function otpInput(el, idx){
-  el.value = el.value.replace(/[^0-9]/g,'');
-  el.classList.toggle('filled', el.value.length > 0);
-  if(el.value && idx < 5) document.getElementById('otp-'+(idx+1))?.focus();
-  // auto-verify when all filled
-  const code = getOTPValue();
-  if(code.length === 6) verifyOTP();
-}
-function otpKey(e, idx){
-  if(e.key==='Backspace' && !e.target.value && idx > 0){
-    const prev = document.getElementById('otp-'+(idx-1));
-    if(prev){ prev.value=''; prev.classList.remove('filled'); prev.focus(); }
-  }
-}
-function getOTPValue(){
-  return [0,1,2,3,4,5].map(i=>document.getElementById('otp-'+i)?.value||'').join('');
-}
-function resendOTP(){
-  _mockOtp = String(Math.floor(100000 + Math.random() * 900000));
-  document.getElementById('otp-hint').textContent = _mockOtp;
-  [0,1,2,3,4,5].forEach(i=>{
-    const d=document.getElementById('otp-'+i);
-    if(d){d.value='';d.classList.remove('filled','err');}
-  });
-  document.getElementById('otp-err').classList.remove('show');
-  document.getElementById('otp-0')?.focus();
-}
-
-function verifyOTP(){
-  const entered = getOTPValue();
-  if(entered.length < 6) return;
-  const digits = document.querySelectorAll('.otp-digit');
-
-  if(entered === _mockOtp){
-    // correct — flash green then proceed
-    digits.forEach(d=>{ d.classList.remove('err'); d.style.borderColor='var(--green)'; d.style.background='rgba(46,125,50,.06)'; });
-    document.getElementById('submit-bar').classList.remove('visible');
-    setTimeout(()=> submitExistingCustomer(), 600);
-  } else {
-    // wrong — shake and show error
-    digits.forEach(d=>d.classList.add('err'));
-    document.getElementById('otp-err').classList.add('show');
-    setTimeout(()=>{
-      [0,1,2,3,4,5].forEach(i=>{
-        const d=document.getElementById('otp-'+i);
-        if(d){d.value='';d.classList.remove('err','filled');}
-      });
-      document.getElementById('otp-0')?.focus();
-    }, 1200);
-  }
 }
 
 function showFallbackForm(s2){
@@ -899,7 +816,10 @@ function submitExistingCustomer(){
         '<p>情報を受け付けました。担当営業より<strong>2営業日以内</strong>にご連絡いたします。他にご質問があればお気軽にどうぞ。</p>');
     }, `<div class="done-circle o">📋</div>
       <div class="done-title">情報を受け付けました</div>
-      <div class="done-body">担当営業より<strong>2営業日以内</strong>にご連絡いたします。</div>
+      <div class="done-body">
+        <strong>${_mockDBRecord.company}</strong> の情報を担当営業へ送信しました。<br>
+        2営業日以内にご連絡いたします。
+      </div>
       <div class="slack-pill purple">${slackSvg()} Slack #hp-bot + #dashboard-bot（Trigger #2）に通知済み</div>
       <div class="done-note">履歴は解決済みになるまで保持されます</div>`);
   });
