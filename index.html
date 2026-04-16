@@ -329,7 +329,7 @@ html,body{height:100%;font-family:'Noto Sans JP',sans-serif;font-size:14px;line-
     <!-- UC strip -->
     <div class="uc-strip">
       <span class="uc-tag" id="uc-tag">UC-01</span>
-      <span class="uc-title" id="uc-title">業務相談チャットボット – 公開サイト</span>Bot A</span>
+      <span class="uc-title" id="uc-title">業務相談チャットボット – 公開サイト</span>未ログイン</span>
     </div>
 
     <!-- SCREEN: chat messages -->
@@ -373,7 +373,7 @@ html,body{height:100%;font-family:'Noto Sans JP',sans-serif;font-size:14px;line-
       <button class="toggle-track" id="bot-toggle" onclick="selectBot(botMode==='A'?'B':'A')">
         <div class="toggle-thumb"></div>
       </button>
-      <span class="toggle-label" id="toggle-label" onclick="selectBot(botMode==='A'?'B':'A')">Bot A</span>
+      <span class="toggle-label" id="toggle-label" onclick="selectBot(botMode==='A'?'B':'A')">未ログイン</span>
     </div>
     <div class="inp-row">
       <textarea class="inp" id="inp" placeholder="製品QAや見積・提案" rows="1"
@@ -414,11 +414,11 @@ function selectBot(mode){
   if(mode==='B'){
     track.classList.add('on');
     label.classList.add('on');
-    label.textContent = 'Bot B';
+    label.textContent = 'ログイン済み';
   } else {
     track.classList.remove('on');
     label.classList.remove('on');
-    label.textContent = 'Bot A';
+    label.textContent = '未ログイン';
   }
 }
 
