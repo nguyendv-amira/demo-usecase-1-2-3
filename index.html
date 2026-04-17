@@ -587,57 +587,18 @@ function startUC03Form(trigger){
     ? '提案資料 – 顧客情報フォーム（Bot A）'
     : 'エスカレーション – 顧客情報フォーム（Bot A）');
 
-  // build form: step 1 = status selector
-  renderFormStep1(introHtml);
-  showOnly('form-screen');
-}
-
-/* Step 1: status selector */
-function renderFormStep1(introHtml){
+  // build form: show 4-field contact form directly (no status selector)
   document.getElementById('form-body').innerHTML = `
     <div class="form-intro o">${introHtml}</div>
-    <div class="fsec">PinRichのご利用状況</div>
-    <div class="status-row">
-      <button class="status-btn" id="st-new" onclick="selectStatus('new')">🆕 新規（初めて）</button>
-      <button class="status-btn" id="st-existing" onclick="selectStatus('existing')">✅ 既存（利用中）</button>
-    </div>
-    <div id="form-step2"></div>`;
-  document.getElementById('submit-bar').classList.remove('visible');
-}
-
-/* Step 2 branches from status */
-function selectStatus(status){
-  document.getElementById('st-new').classList.toggle('sel', status==='new');
-  document.getElementById('st-existing').classList.toggle('sel', status==='existing');
-
-  const s2 = document.getElementById('form-step2');
-  if(status==='new'){
-    s2.innerHTML = `
-      <div class="fsec" style="margin-top:4px">お客様情報</div>
-      <div class="form-row2">
-        <div class="fg"><label class="flabel">会社名 <span class="req">必須</span></label><input class="finput" id="f-company" type="text" placeholder="株式会社〇〇"></div>
-        <div class="fg"><label class="flabel">担当者名 <span class="req">必須</span></label><input class="finput" id="f-name" type="text" placeholder="山田 太郎"></div>
-      </div>
-      <div class="form-row2">
-        <div class="fg"><label class="flabel">メールアドレス <span class="req">必須</span></label><input class="finput" id="f-email" type="email" placeholder="taro@example.com"></div>
-        <div class="fg"><label class="flabel">電話番号 <span class="req">必須</span></label><input class="finput" id="f-tel" type="tel" placeholder="03-0000-0000"></div>
-      </div>`;
-    document.getElementById('submit-btn').textContent = '送信して担当者に連絡する';
-    document.getElementById('submit-bar').classList.add('visible');
-  } else {
-    s2.innerHTML = `
-      <div class="fsec" style="margin-top:4px">管理者メールアドレスを入力</div>
-      <div class="fg">
-        <label class="flabel">管理者メールアドレス <span class="req">必須</span></label>
-        <input class="finput" id="f-admin-email" type="email" placeholder="admin@yourcompany.com">
-        <span style="font-size:11px;color:var(--muted);margin-top:3px">※ PinRichご登録時のメールアドレスを入力してください</span>
-      </div>`;
-    document.getElementById('submit-btn').textContent = 'メールアドレスで確認する';
-    document.getElementById('submit-bar').classList.add('visible');
-  }
-  // scroll form to bottom
-  const fb = document.getElementById('form-screen');
-  setTimeout(()=>fb.scrollTop=fb.scrollHeight, 100);
+    <div class="fsec">お客様情報</div>
+    <div class="fg"><label class="flabel">会社名 <span class="req">必須</span></label><input class="finput" id="f-company" type="text" placeholder="株式会社〇〇"></div>
+    <div class="fg"><label class="flabel">担当者名 <span class="req">必須</span></label><input class="finput" id="f-name" type="text" placeholder="山田 太郎"></div>
+    <div class="fg"><label class="flabel">メールアドレス <span class="req">必須</span></label><input class="finput" id="f-email" type="email" placeholder="taro@example.com"></div>
+    <div class="fg"><label class="flabel">電話番号 <span class="req">必須</span></label><input class="finput" id="f-tel" type="tel" placeholder="03-0000-0000"></div>`;
+  document.getElementById('submit-btn').textContent = '送信して担当者に連絡する';
+  document.getElementById('submit-btn').onclick = submitForm;
+  document.getElementById('submit-bar').classList.add('visible');
+  showOnly('form-screen');
 }
 
 /* ── system message in chat ── */
