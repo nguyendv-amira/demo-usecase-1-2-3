@@ -437,7 +437,7 @@ function greet(){
     setTimeout(()=>{
       rmTyping();
       if(botMode==='B'){
-        addBotRaw(`<p><strong>こんにちは、${mockUser.name}さん！</strong></p><p style="margin-top:6px">PinRich AIアシスタントです。ご利用中の製品（${mockUser.products.join('・')}）の使い方や、業務に関するご質問をお気軽にどうぞ。</p>`);
+        addBotRaw(`<p><strong>${mockUser.name}さん、こんにちは！</strong></p><p style="margin-top:6px">PinRich AIアシスタントです。製品の使い方や新しいサービスのご提案など、お気軽にご質問ください。</p>`);
       } else {
         addBotRaw(`<p><strong>こんにちは！PinRichのAIアシスタント</strong>です。</p><p style="margin-top:6px">業務課題のご相談や製品・料金のご案内など、お気軽にお話しください。</p>`);
       }
